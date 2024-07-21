@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 export const InviteContorller = catchAsyncErrors(async (req, res, next) => {
     const { email, passCode } = req.body;
     const user = req.user;
-    console.log(email);
+    console.log(user);
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
@@ -15,7 +15,7 @@ export const InviteContorller = catchAsyncErrors(async (req, res, next) => {
           pass: passCode,
         },
       });
-      // jdhbooxhnmchkbxs
+
     const info = await transporter.sendMail({
         from: user.email,
         to: email, 

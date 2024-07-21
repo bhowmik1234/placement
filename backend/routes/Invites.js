@@ -5,6 +5,6 @@ import { InviteContorller } from "../controllers/InviteContorller.js";
 
 const router = express.Router();
 
-router.post('/student', InviteContorller);
+router.post('/student',isAuthenticated, InviteContorller);
 
 export default router;

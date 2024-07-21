@@ -74,6 +74,15 @@ const Navbar = () => {
               </li>
             </>
           )}
+          {user && user.role === "Student" && (
+            <>
+            <li className="md:ml-6 my-2 md:my-0">
+                <Link to="/profile/student" className="block py-2 md:py-0 hover:text-gray-300" onClick={toggleMenu}>profile</Link>
+            </li>
+            </>
+          )
+
+          }
           <li className="md:ml-6 my-2 md:my-0">
             <button onClick={handleLogout} className="block w-full md:w-auto py-2 md:py-1 bg-zinc-500 px-5 hover:text-gray-300 rounded-lg transition duration-300 ease-in-out hover:bg-zinc-600">Logout</button>
           </li>

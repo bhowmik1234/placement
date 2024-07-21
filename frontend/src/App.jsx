@@ -17,6 +17,7 @@ import PostJob from "./components/Job/PostJob";
 import NotFound from "./components/NotFound/NotFound";
 import MyJobs from "./components/Job/MyJobs";
 import TeacherInvite from "./components/Invite/TeacherInvite";
+import ProfilePage from "./components/Layout/ProfilePage";
 
 
 const App = () => {
@@ -55,6 +56,8 @@ const App = () => {
           <Route path="/job/me" element={<MyJobs />} />
           <Route path="/invite/student" element={<TeacherInvite />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/profile/student" element={<ProfilePage />} />
+
         </Routes>
         <Footer />
         <Toaster />

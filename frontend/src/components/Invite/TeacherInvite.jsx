@@ -59,7 +59,14 @@ const TeacherInvite = () => {
         try {
             const res = await axios.post(
                 "http://localhost:4000/api/v1/invites/student",
-                { email: input, passCode }
+                { email: input, passCode },
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+                
             );
             console.log(res);
             toast.success("Invite sent successfull.");
