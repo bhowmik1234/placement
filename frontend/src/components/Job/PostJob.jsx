@@ -60,6 +60,18 @@ const PostJob = () => {
           },
         }
       )
+
+      setTitle(""), 
+      setDescription(""), 
+      setCategory(""), 
+      setCountry(""), 
+      setCity(""), 
+      setLocation(""), 
+      setSalaryFrom(""), 
+      setSalaryTo(""), 
+      setFixedSalary(""), 
+      setSalaryType("")
+
       .then((res) => {
         toast.success(res.data.message);
       })

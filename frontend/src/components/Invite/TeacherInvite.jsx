@@ -35,7 +35,7 @@ const TeacherInvite = () => {
   return (
     <div className="max-w-3xl mx-auto pt-24 min-h-screen p-4 sm:p-6 sm:pt-24 lg:p-8 lg:pt-20">
       <button 
-        className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-base mb-5 cursor-pointer"
+        className="w-full sm:w-auto bg-black hover:bg-zinc-800 text-white py-2 px-4 rounded text-base mb-5 cursor-pointer"
         onClick={handleInvite}
       >
         Invite student
@@ -57,15 +57,18 @@ const TeacherInvite = () => {
           <div className="bg-white p-5 rounded w-full max-w-md">
             <h3 className="text-lg font-bold mb-4">Invite Student</h3>
             <form onSubmit={handleSubmitInvite} className="flex flex-col">
-              <input 
-                className="mb-2 p-2 border rounded"
-                onChange={(e) => setInput(e.target.value)} 
-                type="email" 
-                placeholder="Enter student email" 
-                required 
-              />
+              <div className="flex items-center bg-zinc-100 border-black border-[1px] rounded-lg mb-4">
+                <input 
+                  className="w-full p-3 bg-transparent border-none focus:outline-none text-black"
+
+                  onChange={(e) => setInput(e.target.value)} 
+                  type="email" 
+                  placeholder="Enter student email" 
+                  required 
+                />
+              </div>
               <button 
-                className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded cursor-pointer"
+                className="bg-black hover:bg-zinc-700 text-white py-2 px-4 rounded cursor-pointer"
                 type="submit"
               >
                 Send Invite
