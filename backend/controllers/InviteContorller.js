@@ -3,23 +3,24 @@ import nodemailer from "nodemailer";
 
 
 export const InviteContorller = catchAsyncErrors(async (req, res, next) => {
-    const { email } = req.body;
+    const { email, passCode } = req.body;
+    const user = req.user;
     console.log(email);
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true, 
         auth: {
-          user: "rajendracwda@gmail.com",
-          pass: "jdhbooxhnmchkbxs",
+          user: user.email,
+          pass: passCode,
         },
       });
-
+      // jdhbooxhnmchkbxs
     const info = await transporter.sendMail({
-        from: "rajendracwda@gmail.com",
+        from: user.email,
         to: email, 
         subject: "Registration",
-        text: `${process.env.FRONTEND_URL}/register/student`,
+        text: `Click here for registration in placemnet portal. ${process.env.FRONTEND_URL}/register/student`,
     });
 
     console.log("Message sent: %s", info.messageId);

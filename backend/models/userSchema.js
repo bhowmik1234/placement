@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  passCode: {
+    type: String,
+    default:""
+  },
   emailAlt: String,
   firstName: String,
   fathersName: String,
