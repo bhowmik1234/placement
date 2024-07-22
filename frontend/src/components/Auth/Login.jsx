@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/user/login",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`,
         { email, password, role },
         {
           headers: {
@@ -43,7 +43,6 @@ const Login = () => {
 
   return (
     <>
-{/* <<<<<<< HEAD */}
       <section className="min-h-screen flex flex-col items-center justify-center bg-white text-black p-6">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
@@ -105,7 +104,6 @@ const Login = () => {
                 Register Now ?
               </Link> */}
             </div>
-            {/* <Link to={"/register"}>Register Now</Link> */}
 
           </form>
         </div>

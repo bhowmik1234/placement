@@ -96,14 +96,11 @@ const Register = () => {
 
     const { isAuthorized, setIsAuthorized } = useContext(Context);
 
-// User validation failed: name: Name must contain at least 3 Characters!,
-//  role: `student` is not a valid enum value for path `role`.
-
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
             const {data} = await axios.post(
-                "http://localhost:4000/api/v1/user/register",
+                `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/register`,
                 {name, email, phone, password, role, ...formData},
                 {
                     headers: {
@@ -151,7 +148,6 @@ const Register = () => {
                                 <input
                                     type="email"
                                     name="email"
-                                    // value={formData.email}
                                     onChange={(e)=> setEmail(e.target.value)}
                                     className="w-full p-3 border-black border-[1px] bg-zinc-100 rounded-lg"
                                 />
@@ -163,8 +159,7 @@ const Register = () => {
                                 <input
                                     type="text"
                                     name="name"
-                                    // value={formData.name}
-                                    // onChange={handleChange}
+                                    
                                     onChange={(e)=> setName(e.target.value)}
 
                                     className="w-full p-3 border-black border-[1px] bg-zinc-100 rounded-lg"
@@ -177,8 +172,6 @@ const Register = () => {
                                 <input
                                     type="tel"
                                     name="phone"
-                                    // value={formData.phone}
-                                    // onChange={handleChange}
                                     onChange={(e)=> setPhone(e.target.value)}
 
                                     className="w-full p-3 border-black border-[1px] bg-zinc-100 rounded-lg"
@@ -191,8 +184,6 @@ const Register = () => {
                                 <input
                                     type="password"
                                     name="password"
-                                    // value={formData.password}
-                                    // onChange={handleChange}
                                     onChange={(e)=> setPassword(e.target.value)}
 
                                     className="w-full p-3 border-black border-[1px] bg-zinc-100 rounded-lg"
@@ -204,8 +195,6 @@ const Register = () => {
                                 </label>
                                 <select
                                     name="role"
-                                    // value={formData.role}
-                                    // onChange={handleChange}
                                     onChange={(e)=> setRole(e.target.value)}
 
                                     className="w-full p-3 border-black border-[1px] bg-zinc-100 rounded-lg"
@@ -213,14 +202,12 @@ const Register = () => {
                                     <option value="">Select Role</option>
                                     <option value="Student">Student</option>
                                     <option value="Employer">Teacher</option>
-                                    {/* Add more role options as needed */}
                                 </select>
                             </div>
 
                             <button
                                 type="button"
                                 onClick={() => setStep(2)}
-                                // onClick={handleRegister}
                                 className="w-full py-3 bg-black text-white font-semibold rounded-lg hover:bg-zinc-800 transition duration-300"
                             >
                                 Next

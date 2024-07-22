@@ -3,21 +3,21 @@ import { Context } from "../../main";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import ResumeModal from "./ResumeModal";
 
 const MyApplications = () => {
   const { user, isAuthorized } = useContext(Context);
   const [applications, setApplications] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [resumeImageUrl, setResumeImageUrl] = useState("");
   const navigateTo = useNavigate();
 
   useEffect(() => {
+    if (!isAuthorized) {
+      navigateTo("/");
+    }
     const fetchApplications = async () => {
       try {
         const url = user && user.role === "Employer"
-          ? "http://localhost:4000/api/v1/application/employer/getall"
-          : "http://localhost:4000/api/v1/application/jobseeker/getall";
+          ? `${import.meta.env.VITE_BACKEND_URL}/api/v1/application/employer/getall`
+          : `${import.meta.env.VITE_BACKEND_URL}/api/v1/application/jobseeker/getall`;
         const { data } = await axios.get(url, { withCredentials: true });
         setApplications(data.applications);
       } catch (error) {
@@ -26,15 +26,14 @@ const MyApplications = () => {
     };
 
     fetchApplications();
+    
   }, [user, isAuthorized]);
 
-  if (!isAuthorized) {
-    navigateTo("/");
-  }
+  
 
   const deleteApplication = async (id) => {
     try {
-      const { data } = await axios.delete(`http://localhost:4000/api/v1/application/delete/${id}`, {
+      const { data } = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/application/delete/${id}`, {
         withCredentials: true,
       });
       toast.success(data.message);
@@ -42,15 +41,6 @@ const MyApplications = () => {
     } catch (error) {
       toast.error(error.response.data.message);
     }
-  };
-
-  const openModal = (imageUrl) => {
-    setResumeImageUrl(imageUrl);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
   };
 
   return (
@@ -68,19 +58,14 @@ const MyApplications = () => {
                 key={element._id}
                 element={element}
                 deleteApplication={deleteApplication}
-                openModal={openModal}
               />
             ) : (
               <EmployerCard
                 key={element._id}
                 element={element}
-                openModal={openModal}
               />
             )
           )
-        )}
-        {modalOpen && (
-          <ResumeModal imageUrl={resumeImageUrl} onClose={closeModal} />
         )}
       </div>
     </section>
@@ -89,7 +74,7 @@ const MyApplications = () => {
 
 export default MyApplications;
 
-const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
+const JobSeekerCard = ({ element, deleteApplication }) => {
   return (
     <div className="job_seeker_card bg-white border border-gray-200 rounded-lg shadow-md mb-6 overflow-hidden">
   <div className="p-6 flex w-full flex-col md:flex-row">
@@ -136,7 +121,7 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
   );
 };
 
-const EmployerCard = ({ element, openModal }) => {
+const EmployerCard = ({ element }) => {
   return (
     <div className="job_seeker_card bg-white border border-gray-200 rounded-lg shadow-md mb-6 overflow-hidden">
   <div className="p-6 w-full flex flex-col md:flex-row">
@@ -156,17 +141,6 @@ const EmployerCard = ({ element, openModal }) => {
           <span><span className="font-semibold mr-2">Address:</span> {element.address}</span>
         </p>
       </div>
-      {/* Uncomment and adjust as needed for resume display
-      <div className="mb-6">
-        <h3 className="font-semibold text-gray-800 mb-2">Resume</h3>
-        <div className="bg-gray-100 p-4 rounded-lg cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => openModal(element.resume.url)}>
-          <p className="text-blue-600 flex items-center justify-center">
-            <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-            View Resume
-          </p>
-        </div>
-      </div>
-      */}
     </div>
     <div className="w-full md:w-1/2 md:pl-4 mt-6 md:mt-0">
       <div className="bg-gray-100 w-full p-4 rounded-lg h-full">

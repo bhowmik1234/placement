@@ -14,7 +14,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/v1/user/logout",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,
         {
           withCredentials: true,
         }
@@ -59,11 +59,6 @@ const Navbar = () => {
               {user && (user.role === "Employer" || user.special === "special") ? "Applicant's " : "My Application"}
             </Link>
           </li>
-          {/* <li className="md:ml-6 my-2 md:my-0">
-            <Link to="/applications/me" className="block py-2 md:py-0 hover:text-gray-300" onClick={toggleMenu}>
-              {user && (user.role === "Student" || user.special === "special") ? "My Application" : null}
-            </Link>
-          </li> */}
           {user && (user.role === "Employer" || user.special === "special") && (
             <>
               <li className="md:ml-6 my-2 md:my-0">

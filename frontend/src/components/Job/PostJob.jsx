@@ -17,14 +17,9 @@ const PostJob = () => {
   const [salaryType, setSalaryType] = useState("default");
 
   const { isAuthorized, user } = useContext(Context);
-
-  // useEffect(()=>{
-  //   const navigateTo = useNavigate();
-  // if (!isAuthorized || (user && user.role !== "Employer")) {
-  //   navigateTo("/");
-  // }
-  // })
   const navigateTo = useNavigate();
+
+
   if (!isAuthorized || (user && user.role !== "Employer" && user.special === "")) {
     navigateTo("/");
   }
@@ -44,7 +39,7 @@ const PostJob = () => {
     }
     await axios
       .post(
-        "http://localhost:4000/api/v1/job/post",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/job/post`,
         fixedSalary.length >= 4
           ? {
               title,

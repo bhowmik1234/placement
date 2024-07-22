@@ -125,7 +125,7 @@ const userSchema = new mongoose.Schema({
   workExperienceYears: String,
 });
 
-// Encrypting the password before saving the user
+
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -133,12 +133,12 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-// Comparing user password with the hashed password in the database
+
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Generating JWT token
+
 userSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, '123', {
     expiresIn: '1d',

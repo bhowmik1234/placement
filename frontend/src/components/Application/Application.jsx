@@ -15,12 +15,6 @@ const Application = () => {
 
   const navigateTo = useNavigate();
 
-  // Function to handle file input changes
-  const handleFileChange = (event) => {
-    const resume = event.target.files[0];
-    setResume(resume);
-  };
-
   const { id } = useParams();
   const handleApplication = async (e) => {
     e.preventDefault();
@@ -30,12 +24,11 @@ const Application = () => {
     formData.append("phone", phone);
     formData.append("address", address);
     formData.append("coverLetter", coverLetter);
-    // formData.append("resume", resume);
     formData.append("jobId", id);
 
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/application/post",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/application/post`,
         formData,
         {
           withCredentials: true,
@@ -94,20 +87,8 @@ const Application = () => {
             placeholder="CoverLetter..."
             value={coverLetter}
             onChange={(e) => setCoverLetter(e.target.value)}
+            className="shadow-lg border p-4"
           />
-          <div>
-            <label
-              style={{ textAlign: "start", display: "block", fontSize: "20px" }}
-            >
-              Select Resume
-            </label>
-            <input
-              type="file"
-              accept=".pdf, .jpg, .png"
-              onChange={handleFileChange}
-              style={{ width: "100%" }}
-            />
-          </div>
           <button type="submit">Send Application</button>
         </form>
       </div>

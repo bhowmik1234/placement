@@ -20,14 +20,14 @@ const TeacherInvite = () => {
         const fetchdetail = async () => {
             try {
                 const res = await axios.get(
-                    "http://localhost:4000/api/v1/user/getstudent",
+                    `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/getstudent`,
                     {
                         withCredentials: true,
                         
                     }
                 );
                 const res1 = await axios.get(
-                    "http://localhost:4000/api/v1/user/getuser",
+                    `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/getuser`,
                     {
                         withCredentials: true,
                        
@@ -68,7 +68,7 @@ const TeacherInvite = () => {
         e.preventDefault();
         try {
             const res = await axios.post(
-                "http://localhost:4000/api/v1/invites/student",
+                `${import.meta.env.VITE_BACKEND_URL}/api/v1/invites/student`,
                 { email: input, passCode },
                 {
                     withCredentials: true,
@@ -97,7 +97,7 @@ const TeacherInvite = () => {
             setPassCode(input);
             let appPassword = removeSpaces(appCode);
             const res = await axios.post(
-                "http://localhost:4000/api/v1/user/update-detail",
+                `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/update-detail`,
                 { passCode: appPassword },
                 {
                     withCredentials: true,
@@ -119,7 +119,7 @@ const TeacherInvite = () => {
         try {
             setSpecial(false);
             const res = await axios.post(
-                "http://localhost:4000/api/v1/user/updatespecial",
+                `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/updatespecial`,
                 { email:input },
                 {
                     withCredentials: true,
