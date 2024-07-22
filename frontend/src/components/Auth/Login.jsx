@@ -59,7 +59,7 @@ const Login = () => {
                   className="w-full p-3 bg-transparent border-none focus:outline-none text-black"
                 >
                   <option value="">Select Role</option>
-                  <option value="Employer">Employer</option>
+                  <option value="Employer">Teacher</option>
                   <option value="Student">Student</option>
                 </select>
                 <FaRegUser size={24} className="text-xl mx-2 text-black" />
