@@ -5,8 +5,8 @@ import { Job } from "../models/jobSchema.js";
 
 
 export const postApplication = catchAsyncErrors(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Employer") {
+  const { role, special } = req.user;
+  if (role === "Employer" || special === "specila") {
     return next(
       new ErrorHandler("Employer not allowed to access this resource.", 400)
     );
@@ -57,8 +57,8 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
 
 export const employerGetAllApplications = catchAsyncErrors(
   async (req, res, next) => {
-    const { role } = req.user;
-    if (role === "Student") {
+    const { role, special } = req.user;
+    if (role === "Student" || special === "special") {
       return next(
         new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
       );
