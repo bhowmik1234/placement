@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  special:{
+    type: String,
+    enum:["special"],
+    default:""
+  },
   passCode: {
     type: String,
     default:""

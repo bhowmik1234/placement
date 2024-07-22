@@ -9,6 +9,7 @@ const TeacherInvite = () => {
     const [passCode, setPassCode] = useState("");
     const [code, setCode] = useState(false);
     const [appCode, setAppCode] = useState("");
+    const [special, setSpecial] = useState(false);
     const [students, setStudents] = useState([
         { name: "John Doe", email: "john@example.com", status: "Active" },
         { name: "Jane Smith", email: "jane@example.com", status: "Pending" },
@@ -22,17 +23,19 @@ const TeacherInvite = () => {
                     "http://localhost:4000/api/v1/user/getstudent",
                     {
                         withCredentials: true,
+                        
                     }
                 );
                 const res1 = await axios.get(
                     "http://localhost:4000/api/v1/user/getuser",
                     {
                         withCredentials: true,
+                       
                     }
                 );
                 const u = await res1.data.user;
                 if (u.passCode === "") {
-                    setCode(true);
+                    setCode(false);
                 }
                 setPassCode(u.passCode);
                 const st = await res.data.user;
@@ -54,6 +57,13 @@ const TeacherInvite = () => {
         setShowPopup(false);
     };
 
+    const handlespecialInvite =()=>{
+        setSpecial(true);
+    }
+    const handlespecialclose = ()=>{
+        setSpecial(false);
+    }
+
     const handleSubmitInvite = async (e) => {
         e.preventDefault();
         try {
@@ -69,6 +79,7 @@ const TeacherInvite = () => {
                 
             );
             console.log(res);
+            setInput("");
             toast.success("Invite sent successfull.");
         } catch (error) {
             toast.error("Invitation failed.");
@@ -104,15 +115,49 @@ const TeacherInvite = () => {
         }
     };
 
+    const handleSpeicalSubmitInvite = async ()=>{
+        try {
+            setSpecial(false);
+            const res = await axios.post(
+                "http://localhost:4000/api/v1/user/updatespecial",
+                { email:input },
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            setInput("");
+            console.log(res);
+            toast.success("invite sent.")
+        } catch (error) {
+            console.log(error);
+            toast.error("error");
+        }
+    }
+
     return (
         <div className="max-w-3xl mx-auto pt-24 min-h-screen p-4 sm:p-6 sm:pt-24 lg:p-8 lg:pt-20">
             {!code &&
-              <button
-                className="w-full sm:w-auto bg-black hover:bg-zinc-800 text-white py-2 px-4 rounded text-base mb-5 cursor-pointer"
-                onClick={handleInvite}
-            >
-                Invite student
-            </button>}
+            <div className="flex justify-between">
+                <button
+                    className="w-full sm:w-auto bg-black hover:bg-zinc-800 text-white py-2 px-4 rounded text-base mb-5 cursor-pointer"
+                    onClick={handleInvite}
+                >
+                    Invite student
+                </button>
+
+                <button
+                    className="w-full sm:w-auto bg-black hover:bg-zinc-800 text-white py-2 px-4 rounded text-base mb-5 cursor-pointer"
+                    onClick={handlespecialInvite}
+                >
+                    Special Invite
+                </button>
+
+            </div>
+            }
+              
 
             {!code &&
               <div className="bg-gray-100 rounded p-4 sm:p-6">
@@ -234,6 +279,42 @@ const TeacherInvite = () => {
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+            )}
+
+{special && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
+                    <div className="bg-white p-5 rounded w-full max-w-md">
+                        <h3 className="text-lg font-bold mb-4">
+                            Invite Student
+                        </h3>
+                        <form
+                            onSubmit={handleSpeicalSubmitInvite}
+                            className="flex flex-col"
+                        >
+                            <div className="flex items-center bg-zinc-100 border-black border-[1px] rounded-lg mb-4">
+                                <input
+                                    className="w-full p-3 bg-transparent border-none focus:outline-none text-black"
+                                    onChange={(e) => setInput(e.target.value)}
+                                    type="email"
+                                    placeholder="Enter student email (special invite)"
+                                    required
+                                />
+                            </div>
+                            <button
+                                className="bg-black hover:bg-zinc-700 text-white py-2 px-4 rounded cursor-pointer"
+                                type="submit"
+                            >
+                                Send Invite
+                            </button>
+                        </form>
+                        <button
+                            className="w-full mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded cursor-pointer"
+                            onClick={handlespecialclose}
+                        >
+                            Close
+                        </button>
                     </div>
                 </div>
             )}

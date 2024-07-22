@@ -11,8 +11,8 @@ export const getAllJobs = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const postJob = catchAsyncErrors(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Student") {
+  const { role , special} = req.user;
+  if (role === "Student" && special === "") {
     return next(
       new ErrorHandler("Student not allowed to access this resource.", 400)
     );
@@ -68,8 +68,8 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const getMyJobs = catchAsyncErrors(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Student") {
+  const { role, special } = req.user;
+  if (role === "Student" && special === "") {
     return next(
       new ErrorHandler("Student not allowed to access this resource.", 400)
     );
@@ -82,8 +82,8 @@ export const getMyJobs = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const updateJob = catchAsyncErrors(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Student") {
+  const { role, special } = req.user;
+  if (role === "Student" && special === "") {
     return next(
       new ErrorHandler("Student not allowed to access this resource.", 400)
     );
@@ -105,8 +105,8 @@ export const updateJob = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const deleteJob = catchAsyncErrors(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Student") {
+  const { role, special } = req.user;
+  if (role === "Student" && special==="") {
     return next(
       new ErrorHandler("Student not allowed to access this resource.", 400)
     );

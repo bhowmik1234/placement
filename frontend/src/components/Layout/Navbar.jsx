@@ -56,10 +56,15 @@ const Navbar = () => {
           </li>
           <li className="md:ml-6 my-2 md:my-0">
             <Link to="/applications/me" className="block py-2 md:py-0 hover:text-gray-300" onClick={toggleMenu}>
-              {user && user.role === "Employer" ? "Applicant's " : "My Application"}
+              {user && (user.role === "Employer" || user.special === "special") ? "Applicant's " : "My Application"}
             </Link>
           </li>
-          {user && user.role === "Employer" && (
+          {/* <li className="md:ml-6 my-2 md:my-0">
+            <Link to="/applications/me" className="block py-2 md:py-0 hover:text-gray-300" onClick={toggleMenu}>
+              {user && (user.role === "Student" || user.special === "special") ? "My Application" : null}
+            </Link>
+          </li> */}
+          {user && (user.role === "Employer" || user.special === "special") && (
             <>
               <li className="md:ml-6 my-2 md:my-0">
                 <Link to="/job/post" className="block py-2 md:py-0 hover:text-gray-300" onClick={toggleMenu}>Post Jobs</Link>

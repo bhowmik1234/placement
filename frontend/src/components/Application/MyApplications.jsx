@@ -57,7 +57,7 @@ const MyApplications = () => {
     <section className="my_applications bg-gray-100 py-12 px-4 min-h-screen">
       <div className="container mx-auto max-w-full md:max-w-6xl">
         <h1 className="text-3xl font-bold mb-6 mt-24 text-gray-800">
-          {user && user.role === "Job Seeker" ? "My Applications" : "Applications From Job Seekers"}
+          {user && user.role === "Student" ? "My Applications" : "Applications From Job Seekers"}
         </h1>
         {applications.length === 0 ? (
           <h4 className="text-gray-600 text-center mt-8">No Applications Found</h4>

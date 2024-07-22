@@ -18,6 +18,18 @@ const PostJob = () => {
 
   const { isAuthorized, user } = useContext(Context);
 
+  // useEffect(()=>{
+  //   const navigateTo = useNavigate();
+  // if (!isAuthorized || (user && user.role !== "Employer")) {
+  //   navigateTo("/");
+  // }
+  // })
+  const navigateTo = useNavigate();
+  if (!isAuthorized || (user && user.role !== "Employer" && user.special === "")) {
+    navigateTo("/");
+  }
+
+
   const handleJobPost = async (e) => {
     e.preventDefault();
     if (salaryType === "Fixed Salary") {
@@ -80,10 +92,7 @@ const PostJob = () => {
       });
   };
 
-  const navigateTo = useNavigate();
-  if (!isAuthorized || (user && user.role !== "Employer")) {
-    navigateTo("/");
-  }
+  
 
   return (
     <>

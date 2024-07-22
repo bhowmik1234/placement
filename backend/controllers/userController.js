@@ -90,12 +90,29 @@ export const getStudent = catchAsyncErrors(async (req, res, next)=>{
   let user;
   user = await User.find({
     role:"Student"
-  }).populate('name', 'email');
+  });
   res.status(200).json({
     success: true,
     user,
   });
 })
 
+export const updateSpecial = catchAsyncErrors(async(req, res, next)=>{
+  const { email } = req.body;
+  console.log(email, "hello");
+  const user = await User.findOne({email});
 
+  if(!user) {
+    return next(new ErrorHandler("Invalid Email.", 400));
+  }
+  user.special = "special";
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    user,
+    message: "updated user."
+  });
+})
 

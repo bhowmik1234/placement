@@ -1,5 +1,5 @@
 import express from "express";
-import { login, register, logout, getUser, updateUser, getStudent } from "../controllers/userController.js";
+import { login, register, logout, getUser, updateUser, getStudent, updateSpecial } from "../controllers/userController.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -10,5 +10,7 @@ router.get("/logout", isAuthenticated, logout);
 router.get("/getuser", isAuthenticated, getUser);
 router.post("/update-detail", isAuthenticated, updateUser);
 router.get("/getstudent", isAuthenticated, getStudent);
+router.post("/updatespecial", isAuthenticated, updateSpecial);
+
 
 export default router;
